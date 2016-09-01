@@ -2,11 +2,11 @@ from conans import ConanFile, CMake
 import os
 
 channel = os.getenv("CONAN_CHANNEL", "testing")
-username = os.getenv("CONAN_USERNAME", "memsharded")
+username = os.getenv("CONAN_USERNAME", "laohyx")
 
 class OpenCVTestConan(ConanFile):
     settings = "os", "compiler", "build_type", "arch"
-    requires = "OpenCV/2.4.13@%s/%s" % (username, channel)
+    requires = "OpenCV/3.1.0@%s/%s" % (username, channel)
     generators = "cmake"
 
     def build(self):

@@ -13,8 +13,8 @@ class OpenCVConan(ConanFile):
     opencv_modules = ["calib3d", "core", "features2d", "flann", "highgui", "imgcodecs", "imgproc", "ml",
                     "objdetect", "photo", "shape", "stitching", "superres", "video", "videoio", "videostab"]
     def source(self):
-        tools.download("http://localhost:8000/opencv-3.1.0.zip", "opencv.zip")
-        # tools.download("https://github.com/opencv/opencv/archive/3.1.0.zip", "opencv.zip")
+        #tools.download("http://localhost:8000/opencv-3.1.0.zip", "opencv.zip")
+        tools.download("https://github.com/opencv/opencv/archive/3.1.0.zip", "opencv.zip")
 
         tools.unzip("opencv.zip")
         os.unlink("opencv.zip")

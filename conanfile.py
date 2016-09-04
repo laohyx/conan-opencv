@@ -43,6 +43,7 @@ class OpenCVConan(ConanFile):
         for lib in self.opencv_modules:
             self.copy("*.h*", "include", "opencv-%s/modules/%s/include" % (self.version, lib))
         self.copy("*.lib", "lib", "build/lib", keep_path=False)
+        self.copy("*.pdb", "lib", "build/lib", keep_path=False) # windows debug info
         self.copy("*.a", "lib", "build/lib", keep_path=False) 
         self.copy("*.dll", "bin", "build/bin", keep_path=False)
         self.copy("*.dylib", "lib", "build/lib", keep_path=False)

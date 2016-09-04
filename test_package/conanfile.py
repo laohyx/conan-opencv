@@ -1,8 +1,8 @@
 from conans import ConanFile, CMake
 import os
 
-channel = os.getenv("CONAN_CHANNEL", "testing")
-username = os.getenv("CONAN_USERNAME", "laohyx")
+username = os.getenv("CONAN_USERNAME", "lhtracking")
+channel = os.getenv("CONAN_CHANNEL", "stable")
 
 class OpenCVTestConan(ConanFile):
     settings = "os", "compiler", "build_type", "arch"

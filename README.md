@@ -1,19 +1,20 @@
 # conan-opencv
-OpenCV computer vision package for conan package manager
+(Forked from https://github.com/memsharded/conan-opencv)
+OpenCV computer vision package for conan package manager.
+This repository maintains OpenCV 3.1+.
 
 The package is still not uploaded, but working in:
-- Win10, MSVC14, Release, STATIC opencv
+- Win10, MSVC12, Release/Debug, STATIC opencv
 - Win10, MSVC14, Release, SHARED opencv
 - Third parties libs (zlib, etc), from the bundled source in OpenCV, not using other conan packages (yet)
-- It may work with other configuration (Debug, 32bits)
 
 
 Steps: 
 
 ```bash
-$ git clone https://github.com/memsharded/conan-opencv.git
+$ git clone https://github.com/laohyx/conan-opencv.git
 $ cd conan-opencv
-$ conan export memsharded/testing
+$ conan export lhtracking/stable
 $ conan test_package
 //for other conan defaults
 $ conan test_package -s compiler="Visual Studio" -s compiler.version=14 -s arch=x86_64 -s build_type=Release -s compiler.runtime=MD

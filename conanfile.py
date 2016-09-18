@@ -18,7 +18,7 @@ class OpenCVConan(ConanFile):
 
         tools.unzip("opencv.zip")
         os.unlink("opencv.zip")
-     
+
     def build(self):
         cmake = CMake(self.settings)
         try:  # Just convenient for me, if rebuilding (due to cmake bug)
@@ -36,7 +36,7 @@ class OpenCVConan(ConanFile):
             cmake_flags +=  " -DBUILD_WITH_STATIC_CRT=ON" if "MT" in str(self.settings.compiler.runtime) else " -DBUILD_WITH_STATIC_CRT=OFF"
         print "CMAKE FLAGS ", cmake_flags
         self.run('cd build && cmake ../opencv-%s %s %s' % (self.version, cmake_flags, cmake.command_line))
-        self.run("cd build && cmake --build . %s" % cmake.build_config)
+        self.run("cd build && cmake --build . %s -- /maxcpucount" % cmake.build_config)
 
     def package(self):
         self.copy("*.h*", "include", "opencv-%s/include" % self.version)
@@ -44,12 +44,12 @@ class OpenCVConan(ConanFile):
             self.copy("*.h*", "include", "opencv-%s/modules/%s/include" % (self.version, lib))
         self.copy("*.lib", "lib", "build/lib", keep_path=False)
         self.copy("*.pdb", "lib", "build/lib", keep_path=False) # windows debug info
-        self.copy("*.a", "lib", "build/lib", keep_path=False) 
+        self.copy("*.a", "lib", "build/lib", keep_path=False)
         self.copy("*.dll", "bin", "build/bin", keep_path=False)
         self.copy("*.dylib", "lib", "build/lib", keep_path=False)
         self.copy("*.so", "lib", "build/lib", keep_path=False)
         self.copy("*.xml", "data", "opencv-%s/data" % (self.version))
-        
+
         if not self.options.shared:
             self.copy("*.lib", "lib", "build/3rdparty/lib", keep_path=False)
 
@@ -62,4 +62,3 @@ class OpenCVConan(ConanFile):
             for lib in ["IlmImf", "libjasper", "libjpeg", "libpng", "libtiff", "libwebp", "zlib"]:
                 self.cpp_info.libs.append("%s%s" % (lib,
                     "d" if self.settings.build_type == "Debug" else ""))
-                    

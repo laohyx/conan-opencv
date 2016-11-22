@@ -8,8 +8,8 @@ class OpenCVConan(ConanFile):
     license = "LGPL"
     url = "https://github.com/opencv/opencv/archive/3.1.0.zip"
     settings = "os", "compiler", "build_type", "arch"
-    options = {"shared": [True, False]}
-    default_options = "shared=False"
+    options = {"shared": [True, False], "disableOpenCL": [True, False]}
+    default_options = "shared=False", "disableOpenCL=True"
     opencv_modules = ["calib3d", "core", "features2d", "flann", "highgui", "imgcodecs", "imgproc", "ml",
                     "objdetect", "photo", "shape", "stitching", "superres", "video", "videoio", "videostab"]
     def source(self):
@@ -30,8 +30,10 @@ class OpenCVConan(ConanFile):
         except:
             pass
         shared = "-DBUILD_SHARED_LIBS=ON" if self.options.shared else "-DBUILD_SHARED_LIBS=OFF"
-        cmake_flags = ("%s -DBUILD_EXAMPLES=OFF -DBUILD_DOCS=OFF -DBUILD_TESTS=OFF -DBUILD_opencv_apps=OFF -DBUILD_PERF_TESTS=OFF -DWITH_IPP=OFF -DWITH_TBB=OFF"
+        cmake_flags = ("%s -DBUILD_EXAMPLES=OFF -DBUILD_DOCS=OFF -DBUILD_TESTS=OFF -DBUILD_opencv_apps=OFF -DBUILD_PERF_TESTS=OFF -DWITH_IPP=OFF -DWITH_TBB=OFF "
                         % (shared) )
+        if self.options.disableOpenCL:
+            cmake_flags += "-DWITH_OPENCL=OFF -DWITH_OPENCLAMDFFT=OFF -DWITH_OPENCLAMDBLAS=OFF -DWITH_VA_INTEL=OFF "
         if self.settings.compiler == "Visual Studio":
             cmake_flags +=  " -DBUILD_WITH_STATIC_CRT=ON" if "MT" in str(self.settings.compiler.runtime) else " -DBUILD_WITH_STATIC_CRT=OFF"
         print "CMAKE FLAGS ", cmake_flags

@@ -12,13 +12,8 @@ class OpenCVConan(ConanFile):
     default_options = "shared=False", "disableOpenCL=True"
     opencv_modules = ["calib3d", "core", "features2d", "flann", "highgui", "imgcodecs", "imgproc", "ml",
                     "objdetect", "photo", "shape", "stitching", "superres", "video", "videoio", "videostab"]
-    def source(self):
-        #tools.download("http://localhost:8000/opencv-3.1.0.zip", "opencv.zip")
-        tools.download("https://github.com/opencv/opencv/archive/3.1.0.zip", "opencv.zip")
-
-        tools.unzip("opencv.zip")
-        os.unlink("opencv.zip")
-
+    exports = "*"
+    
     def build(self):
         cmake = CMake(self.settings)
         try:  # Just convenient for me, if rebuilding (due to cmake bug)

@@ -504,7 +504,7 @@ void epnp::compute_A_and_b_gauss_newton(const double * l_6x10, const double * rh
 
 void epnp::gauss_newton(const CvMat * L_6x10, const CvMat * Rho, double betas[4])
 {
-  const int iterations_number = 5;
+  const int iterations_number = 1000;
 
   double a[6*4], b[6], x[4];
   CvMat A = cvMat(6, 4, CV_64F, a);

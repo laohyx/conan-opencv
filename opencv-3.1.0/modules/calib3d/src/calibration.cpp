@@ -980,7 +980,7 @@ CV_IMPL void cvFindExtrinsicCameraParams2( const CvMat* objectPoints,
                   const CvMat* distCoeffs, CvMat* rvec, CvMat* tvec,
                   int useExtrinsicGuess )
 {
-    const int max_iter = 2000;
+    const int max_iter = 100; // XXX(maxhe): original: 20
     Ptr<CvMat> matM, _Mxy, _m, _mn, matL;
 
     int i, count;
